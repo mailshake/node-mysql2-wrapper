@@ -25,7 +25,8 @@ export default function createTable(sql: MySQL, tableName: string, columns: Colu
     return row.isPrimary;
   });
   if (primaryKey.length > 0) {
-    query += `,\n  PRIMARY KEY (${primaryKey[0].name})`;
+    let keys = primaryKey.map((row) => row.name);
+    query += `,\n  PRIMARY KEY (${keys.join(', ')})`;
   }
   query += '\n)';
   return sql.singleTransaction(query);

@@ -21,7 +21,8 @@ function createTable(sql, tableName, columns) {
         return row.isPrimary;
     });
     if (primaryKey.length > 0) {
-        query += ",\n  PRIMARY KEY (" + primaryKey[0].name + ")";
+        var keys = primaryKey.map(function (row) { return row.name; });
+        query += ",\n  PRIMARY KEY (" + keys.join(', ') + ")";
     }
     query += '\n)';
     return sql.singleTransaction(query);
