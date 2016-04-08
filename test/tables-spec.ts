@@ -37,26 +37,31 @@ describe('Tables', () => {
         color: {
           definition: 'varchar(20)'
         },
+        ice_cream: {
+          definition: 'varchar(20)'
+        },
         id: {
-          definition: 'int'
+          definition: 'int NOT NULL AUTO_INCREMENT',
+          isPrimary: true
         }
       })
       .then((result) => {
         return insert(sql, testTableName, {
           color: 'red',
-          id: null
+          ice_cream: 'chocolate'
         }, {
-          color: 'green',
-          id: 5
+          color: 'green'
         });
       })
       .then((result) => {
-        return sql.singleQuery(`select * from ${testTableName} order by id desc`);
+        return sql.singleQuery(`select * from ${testTableName} order by id asc`);
       })
       .then((result) => {
         assert.lengthOf(result, 2);
-        assert.equal(result[0].id, 5);
-        assert.isNull(result[1].id);
+        assert.isOk(result[0].id);
+        assert.equal(result[0].ice_cream, 'chocolate');
+        assert.isOk(result[1].id);
+        assert.isNull(result[1].ice_cream);
       });
     });
   });

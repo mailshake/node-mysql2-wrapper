@@ -7,13 +7,23 @@ function parseCreateColumns(columns) {
     parsed.forEach(function (row) {
         queryCols.push(row.name + " " + row.definition);
     });
-    return queryCols;
+    return {
+        columns: parsed,
+        queryCols: queryCols
+    };
 }
 exports.parseCreateColumns = parseCreateColumns;
 function createTable(sql, tableName, columns) {
     var args = {};
-    var queryCols = parseCreateColumns(columns);
-    var query = "create table " + tableName + " (" + queryCols.join(', ') + ");";
+    var parsed = parseCreateColumns(columns);
+    var query = "create table " + tableName + " (\n  " + parsed.queryCols.join(',\n  ');
+    var primaryKey = parsed.columns.filter(function (row) {
+        return row.isPrimary;
+    });
+    if (primaryKey.length > 0) {
+        query += ",\n  PRIMARY KEY (" + primaryKey[0].name + ")";
+    }
+    query += '\n)';
     return sql.singleTransaction(query);
 }
 Object.defineProperty(exports, "__esModule", { value: true });

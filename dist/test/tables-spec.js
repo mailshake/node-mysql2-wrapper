@@ -32,26 +32,31 @@ describe('Tables', function () {
                 color: {
                     definition: 'varchar(20)'
                 },
+                ice_cream: {
+                    definition: 'varchar(20)'
+                },
                 id: {
-                    definition: 'int'
+                    definition: 'int NOT NULL AUTO_INCREMENT',
+                    isPrimary: true
                 }
             })
                 .then(function (result) {
                 return insert_1.default(sql, testTableName, {
                     color: 'red',
-                    id: null
+                    ice_cream: 'chocolate'
                 }, {
-                    color: 'green',
-                    id: 5
+                    color: 'green'
                 });
             })
                 .then(function (result) {
-                return sql.singleQuery("select * from " + testTableName + " order by id desc");
+                return sql.singleQuery("select * from " + testTableName + " order by id asc");
             })
                 .then(function (result) {
                 chai_1.assert.lengthOf(result, 2);
-                chai_1.assert.equal(result[0].id, 5);
-                chai_1.assert.isNull(result[1].id);
+                chai_1.assert.isOk(result[0].id);
+                chai_1.assert.equal(result[0].ice_cream, 'chocolate');
+                chai_1.assert.isOk(result[1].id);
+                chai_1.assert.isNull(result[1].ice_cream);
             });
         });
     });
