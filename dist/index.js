@@ -9,4 +9,6 @@ var drop_1 = require('./lib/util/drop');
 exports.drop = drop_1.default;
 var insert_1 = require('./lib/util/insert');
 exports.insert = insert_1.default;
+var add_foreign_key_1 = require('./lib/util/add-foreign-key');
+exports.addForeignKey = add_foreign_key_1.default;
 //# sourceMappingURL=index.js.map
