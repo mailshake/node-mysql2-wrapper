@@ -44,6 +44,7 @@ var MySQL = (function () {
             if (state.connection.isUsingTransaction) {
                 return new es6_promise_1.Promise(function (ok, fail) {
                     state.connection.commit(function (err) {
+                        _this.cleanConnection(state.connection);
                         if (err) {
                             return fail(err);
                         }

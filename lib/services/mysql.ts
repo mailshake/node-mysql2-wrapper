@@ -49,6 +49,7 @@ export default class MySQL {
       if (state.connection.isUsingTransaction) {
         return new Promise((ok, fail) => {
           state.connection.commit((err) => {
+            this.cleanConnection(state.connection);
             if (err) {
               return fail(err);
             }
@@ -59,21 +60,21 @@ export default class MySQL {
       this.cleanConnection(state.connection);
       return result;
     })
-      .catch((err: Error) => {
-        if (state.connection && state.connection.isUsingTransaction) {
-          return new Promise((ok, fail) => {
-            state.connection.rollback((innerError) => {
-              this.cleanConnection(state.connection);
-              if (innerError) {
-                return fail(innerError);
-              }
-              fail(err);
-            });
+    .catch((err: Error) => {
+      if (state.connection && state.connection.isUsingTransaction) {
+        return new Promise((ok, fail) => {
+          state.connection.rollback((innerError) => {
+            this.cleanConnection(state.connection);
+            if (innerError) {
+              return fail(innerError);
+            }
+            fail(err);
           });
-        }
-        this.cleanConnection(state.connection);
-        throw err;
-      });
+        });
+      }
+      this.cleanConnection(state.connection);
+      throw err;
+    });
   }
 
   query(connection: any, query: string, parameters?: any): Promise<any> {
