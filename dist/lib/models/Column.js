@@ -44,4 +44,4 @@ var Column = (function () {
 }());
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Column;
-//# sourceMappingURL=Column.js.map
+//# sourceMappingURL=column.js.map

@@ -9,6 +9,7 @@ var mysql_config_1 = require('../lib/models/mysql-config');
 var mysql_1 = require('../lib/services/mysql');
 var create_1 = require('../lib/util/create');
 var insert_1 = require('../lib/util/insert');
+var update_1 = require('../lib/util/update');
 var drop_1 = require('../lib/util/drop');
 describe('Tables', function () {
     var sql;
@@ -57,6 +58,19 @@ describe('Tables', function () {
                 chai_1.assert.equal(result[0].ice_cream, 'chocolate');
                 chai_1.assert.isOk(result[1].id);
                 chai_1.assert.isNull(result[1].ice_cream);
+            });
+        });
+        it('should update the table', function () {
+            return update_1.default(sql, testTableName, {
+                color: 'red-ish'
+            }, {
+                color: 'red'
+            })
+                .then(function (result) {
+                return sql.singleQuery("select * from " + testTableName + " where color = 'red-ish'");
+            })
+                .then(function (result) {
+                chai_1.assert.lengthOf(result, 1);
             });
         });
     });

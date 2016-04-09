@@ -9,6 +9,7 @@ import MySQL from '../lib/services/mysql';
 import Column from '../lib/models/column';
 import create from '../lib/util/create';
 import insert from '../lib/util/insert';
+import update from '../lib/util/update';
 import drop from '../lib/util/drop';
 
 describe('Tables', () => {
@@ -62,6 +63,20 @@ describe('Tables', () => {
         assert.equal(result[0].ice_cream, 'chocolate');
         assert.isOk(result[1].id);
         assert.isNull(result[1].ice_cream);
+      });
+    });
+
+    it('should update the table', function() {
+      return update(sql, testTableName, {
+        color: 'red-ish'
+      }, {
+        color: 'red'
+      })
+      .then((result) => {
+        return sql.singleQuery(`select * from ${testTableName} where color = 'red-ish'`);
+      })
+      .then((result) => {
+        assert.lengthOf(result, 1);
       });
     });
   });
