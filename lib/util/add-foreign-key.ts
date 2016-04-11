@@ -1,8 +1,8 @@
 import { Promise } from 'es6-promise';
-import MySQL from '../services/mysql';
+import Execution from '../services/execution';
 
 export default function addForeignKey(
-  sql: MySQL,
+  sql: Execution,
   tableName: string,
   columns: string[],
   parentTableName: string,
@@ -17,5 +17,5 @@ export default function addForeignKey(
   let query = `ALTER TABLE ${tableName} ADD CONSTRAINT ${keyName} FOREIGN KEY (${columns.join(', ')})\n` +
     `REFERENCES ${parentTableName}(${parentTableColumns.join(', ')})\n` +
     (referenceDefinitions || '');
-  return sql.singleTransaction(query);
+  return sql.query(query);
 }

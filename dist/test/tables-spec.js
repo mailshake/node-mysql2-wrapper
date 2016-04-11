@@ -1,35 +1,19 @@
 "use strict";
-require('source-map-support').install({
-    handleUncaughtExceptions: false
-});
-var path = require('path');
-var fs = require('fs');
 var chai_1 = require('chai');
-var mysql_config_1 = require('../lib/models/mysql-config');
-var mysql_1 = require('../lib/services/mysql');
+var helpers_1 = require('./helpers');
 var create_1 = require('../lib/util/create');
 var insert_1 = require('../lib/util/insert');
 var update_1 = require('../lib/util/update');
-var drop_1 = require('../lib/util/drop');
 describe('Tables', function () {
     var sql;
-    var testTableName = 'node_workhorse_mysql_spec_test';
     before(function () {
-        var config = getConfig();
-        sql = new mysql_1.default(config);
-        return drop_1.default(sql, testTableName);
+        sql = helpers_1.getSql();
+        return helpers_1.dropTestTable(sql);
     });
-    function getConfig() {
-        var jsonPath = path.resolve(__dirname, '../../mysql-config.json');
-        if (!fs.existsSync(jsonPath)) {
-            throw new Error("Please create a 'mysql-config.json' file in the root directory of this project to test");
-        }
-        var rawConfig = JSON.parse(fs.readFileSync(jsonPath));
-        return new mysql_config_1.default(rawConfig);
-    }
     describe('#run', function () {
         it('should create a table', function () {
-            return create_1.default(sql, testTableName, {
+            var exec = sql.transaction();
+            var promise = create_1.default(exec, helpers_1.testTableName, {
                 color: {
                     definition: 'varchar(20)'
                 },
@@ -42,7 +26,7 @@ describe('Tables', function () {
                 }
             })
                 .then(function (result) {
-                return insert_1.default(sql, testTableName, {
+                return insert_1.default(exec, helpers_1.testTableName, {
                     color: 'red',
                     ice_cream: 'chocolate'
                 }, {
@@ -50,8 +34,9 @@ describe('Tables', function () {
                 });
             })
                 .then(function (result) {
-                return sql.singleQuery("select * from " + testTableName + " order by id asc");
-            })
+                return exec.query("select * from " + helpers_1.testTableName + " order by id asc");
+            });
+            return exec.done(promise)
                 .then(function (result) {
                 chai_1.assert.lengthOf(result, 2);
                 chai_1.assert.isOk(result[0].id);
@@ -61,14 +46,16 @@ describe('Tables', function () {
             });
         });
         it('should update the table', function () {
-            return update_1.default(sql, testTableName, {
+            var exec = sql.transaction();
+            var promise = update_1.default(exec, helpers_1.testTableName, {
                 color: 'red-ish'
             }, {
                 color: 'red'
             })
                 .then(function (result) {
-                return sql.singleQuery("select * from " + testTableName + " where color = 'red-ish'");
-            })
+                return exec.query("select * from " + helpers_1.testTableName + " where color = 'red-ish'");
+            });
+            return exec.done(promise)
                 .then(function (result) {
                 chai_1.assert.lengthOf(result, 1);
             });

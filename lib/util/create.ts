@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import MySQL from '../services/mysql';
+import Execution from '../services/execution';
 import Column from '../models/Column';
 import util = require('util');
 
@@ -17,7 +17,7 @@ export function parseCreateColumns(columns: Column[] | any): any {
   };
 }
 
-export default function createTable(sql: MySQL, tableName: string, columns: Column[] | any): Promise<any> {
+export default function createTable(sql: Execution, tableName: string, columns: Column[] | any): Promise<any> {
   let args = {};
   let parsed = parseCreateColumns(columns);
   let query = `create table ${tableName} (\n  ${parsed.queryCols.join(',\n  ')}`;
@@ -29,5 +29,5 @@ export default function createTable(sql: MySQL, tableName: string, columns: Colu
     query += `,\n  PRIMARY KEY (${keys.join(', ')})`;
   }
   query += '\n)';
-  return sql.singleTransaction(query);
+  return sql.query(query);
 }

@@ -6,7 +6,7 @@ function addForeignKey(sql, tableName, columns, parentTableName, parentTableColu
     var query = ("ALTER TABLE " + tableName + " ADD CONSTRAINT " + keyName + " FOREIGN KEY (" + columns.join(', ') + ")\n") +
         ("REFERENCES " + parentTableName + "(" + parentTableColumns.join(', ') + ")\n") +
         (referenceDefinitions || '');
-    return sql.singleTransaction(query);
+    return sql.query(query);
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = addForeignKey;

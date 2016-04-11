@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import MySQL from '../services/mysql';
+import Execution from '../services/execution';
 import Column from '../models/Column';
 import util = require('util');
 
@@ -18,7 +18,7 @@ export function parseUpdateColumns(columns: Column[] | any, variablePrefix:strin
   };
 }
 
-export default function update(sql: MySQL, tableName: string, set: any | any[], where:any|any[]): Promise<any> {
+export default function update(sql: Execution, tableName: string, set: any | any[], where:any|any[]): Promise<any> {
   let setColumns = parseUpdateColumns(set);
   let whereColumns = parseUpdateColumns(where, 'where_');
   let query = `update ${tableName}\n` +
@@ -35,5 +35,5 @@ export default function update(sql: MySQL, tableName: string, set: any | any[], 
     args[key] = whereColumns.values[key];
   });
 
-  return sql.singleTransaction(query, args);
+  return sql.query(query, args);
 }

@@ -29,7 +29,7 @@ function update(sql, tableName, set, where) {
     Object.keys(whereColumns.values).forEach(function (key) {
         args[key] = whereColumns.values[key];
     });
-    return sql.singleTransaction(query, args);
+    return sql.query(query, args);
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = update;

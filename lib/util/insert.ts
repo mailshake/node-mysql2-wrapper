@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import MySQL from '../services/mysql';
+import Execution from '../services/execution';
 import Column from '../models/Column';
 import util = require('util');
 
@@ -44,8 +44,8 @@ export function parseInsertColumns(...columns: any[]): any {
   };
 }
 
-export default function insert(sql: MySQL, tableName: string, ...columns: any[]): Promise<any> {
+export default function insert(sql: Execution, tableName: string, ...columns: any[]): Promise<any> {
   let columnMeta = parseInsertColumns.apply(this, columns);
   let query = `insert into ${tableName} (${columnMeta.tableColumns}) values ${columnMeta.queryValues.join(', ')};`;
-  return sql.singleTransaction(query, columnMeta.queryArgs);
+  return sql.query(query, columnMeta.queryArgs);
 }

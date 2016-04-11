@@ -5,7 +5,7 @@ function dropTables(sql) {
         tableNames[_i - 1] = arguments[_i];
     }
     var query = "drop table if exists " + tableNames.join(', ') + ";";
-    return sql.singleTransaction(query);
+    return sql.query(query);
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = dropTables;

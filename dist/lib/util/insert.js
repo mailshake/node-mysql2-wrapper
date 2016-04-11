@@ -48,7 +48,7 @@ function insert(sql, tableName) {
     }
     var columnMeta = parseInsertColumns.apply(this, columns);
     var query = "insert into " + tableName + " (" + columnMeta.tableColumns + ") values " + columnMeta.queryValues.join(', ') + ";";
-    return sql.singleTransaction(query, columnMeta.queryArgs);
+    return sql.query(query, columnMeta.queryArgs);
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = insert;

@@ -25,7 +25,7 @@ function createTable(sql, tableName, columns) {
         query += ",\n  PRIMARY KEY (" + keys.join(', ') + ")";
     }
     query += '\n)';
-    return sql.singleTransaction(query);
+    return sql.query(query);
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = createTable;
