@@ -4,6 +4,7 @@ export default class Column {
   name: string;
   definition: string;
   value: string;
+  isPrimary: boolean;
 
   constructor(name: string | any, value?: string) {
     if (typeof (name) === 'string') {
