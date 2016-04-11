@@ -25,6 +25,8 @@ var Column = (function () {
             var args;
             if (typeof (data) === 'string' ||
                 typeof (data) === 'number' ||
+                typeof (data) === 'boolean' ||
+                util.isRegExp(data) ||
                 data === null ||
                 util.isDate(data)) {
                 args = {

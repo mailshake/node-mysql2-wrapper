@@ -6,6 +6,7 @@ import create from './lib/util/create';
 import drop from './lib/util/drop';
 import insert from './lib/util/insert';
 import update from './lib/util/update';
+import { select, selectOne } from './lib/util/select';
 import addForeignKey from './lib/util/add-foreign-key';
 
 export {
@@ -17,5 +18,7 @@ export {
   drop,
   insert,
   update,
-  addForeignKey
+  addForeignKey,
+  select,
+  selectOne
 }
