@@ -31,6 +31,7 @@ export default class Column {
       let args;
       if (typeof (data) === 'string' ||
         typeof (data) === 'number' ||
+        typeof (data) === 'boolean' ||
         data === null ||
         util.isDate(data)) {
         args = {
