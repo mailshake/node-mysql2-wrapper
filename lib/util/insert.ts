@@ -3,7 +3,7 @@ import Execution from '../services/execution';
 import Column from '../models/Column';
 import util = require('util');
 
-export function parseInsertColumns(...columns: any[]): any {
+export function parseInsertColumns(columns: any[]): any {
   let columnRows: Column[][] = columns.map((row) => {
     return Column.parseList(row);
   });
@@ -44,8 +44,8 @@ export function parseInsertColumns(...columns: any[]): any {
   };
 }
 
-export default function insert(sql: Execution, tableName: string, ...columns: any[]): Promise<any> {
-  let columnMeta = parseInsertColumns.apply(this, columns);
+export default function insert(sql: Execution, tableName: string, columns: any[]): Promise<any> {
+  let columnMeta = parseInsertColumns(columns);
   let query = `insert into ${tableName} (${columnMeta.tableColumns}) values ${columnMeta.queryValues.join(', ')};`;
   return sql.query(query, columnMeta.queryArgs);
 }

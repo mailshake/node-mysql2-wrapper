@@ -18,12 +18,12 @@ describe('Insert', () => {
   describe('#run', () => {
     it('should insert a row', function() {
       let exec = sql.transaction();
-      let promise = insert(exec, testTableName, {
+      let promise = insert(exec, testTableName, [{
         color: 'red',
         ice_cream: 'chocolate'
       }, {
           color: 'green'
-      })
+      }])
       .then((result) => {
         return exec.query(`select * from ${testTableName} order by id asc`);
       });
@@ -40,10 +40,10 @@ describe('Insert', () => {
 
     it('should fail a transaction and rollback', function() {
       let exec = sql.transaction();
-      let promise = insert(exec, testTableName, {
+      let promise = insert(exec, testTableName, [{
         color: 'blue',
         ice_cream: 'chocolate'
-      })
+      }])
       .then((result) => {
         throw new Error('test');
       });

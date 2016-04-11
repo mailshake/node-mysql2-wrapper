@@ -1,10 +1,6 @@
 "use strict";
 var Column_1 = require('../models/Column');
-function parseInsertColumns() {
-    var columns = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        columns[_i - 0] = arguments[_i];
-    }
+function parseInsertColumns(columns) {
     var columnRows = columns.map(function (row) {
         return Column_1.default.parseList(row);
     });
@@ -41,12 +37,8 @@ function parseInsertColumns() {
     };
 }
 exports.parseInsertColumns = parseInsertColumns;
-function insert(sql, tableName) {
-    var columns = [];
-    for (var _i = 2; _i < arguments.length; _i++) {
-        columns[_i - 2] = arguments[_i];
-    }
-    var columnMeta = parseInsertColumns.apply(this, columns);
+function insert(sql, tableName, columns) {
+    var columnMeta = parseInsertColumns(columns);
     var query = "insert into " + tableName + " (" + columnMeta.tableColumns + ") values " + columnMeta.queryValues.join(', ') + ";";
     return sql.query(query, columnMeta.queryArgs);
 }

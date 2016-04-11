@@ -24,12 +24,12 @@ describe('Tables', () => {
 
   describe('#parseInsertColumns', () => {
     it('should parse a single row', function() {
-      let cols = parseInsertColumns({
+      let cols = parseInsertColumns([{
         hi: 'there',
         ok: {
           definition: 'varchar(3)'
         }
-      });
+      }]);
       assert.lengthOf(cols.tableColumns, 2);
       assert.equal(cols.tableColumns[0], 'hi');
       assert.equal(cols.tableColumns[1], 'ok');
@@ -41,14 +41,14 @@ describe('Tables', () => {
     });
 
     it('should parse multiple rows', function() {
-      let cols = parseInsertColumns({
+      let cols = parseInsertColumns([{
         hi: 'there',
         ok: {
           definition: 'varchar(3)'
         }
       }, {
         hi: 'you'
-      });
+      }]);
       assert.lengthOf(cols.tableColumns, 2);
       assert.equal(cols.tableColumns[0], 'hi');
       assert.equal(cols.tableColumns[1], 'ok');

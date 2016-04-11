@@ -15,12 +15,12 @@ describe('Update', function () {
     describe('#run', function () {
         it('should insert and then update the row', function () {
             var exec = sql.transaction();
-            var promise = insert_1.default(exec, helpers_1.testTableName, {
-                color: 'maroon',
-                ice_cream: 'chocolate'
-            }, {
-                color: 'green'
-            })
+            var promise = insert_1.default(exec, helpers_1.testTableName, [{
+                    color: 'maroon',
+                    ice_cream: 'chocolate'
+                }, {
+                    color: 'green'
+                }])
                 .then(function () {
                 return update_1.default(exec, helpers_1.testTableName, {
                     color: 'red-ish'

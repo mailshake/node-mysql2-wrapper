@@ -19,12 +19,12 @@ describe('Update', () => {
   describe('#run', () => {
     it('should insert and then update the row', function() {
       let exec = sql.transaction();
-      let promise = insert(exec, testTableName, {
+      let promise = insert(exec, testTableName, [{
         color: 'maroon',
         ice_cream: 'chocolate'
       }, {
         color: 'green'
-      })
+      }])
       .then(() => {
         return update(exec, testTableName, {
           color: 'red-ish'

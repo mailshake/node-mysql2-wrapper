@@ -14,12 +14,12 @@ describe('Insert', function () {
     describe('#run', function () {
         it('should insert a row', function () {
             var exec = sql.transaction();
-            var promise = insert_1.default(exec, helpers_1.testTableName, {
-                color: 'red',
-                ice_cream: 'chocolate'
-            }, {
-                color: 'green'
-            })
+            var promise = insert_1.default(exec, helpers_1.testTableName, [{
+                    color: 'red',
+                    ice_cream: 'chocolate'
+                }, {
+                    color: 'green'
+                }])
                 .then(function (result) {
                 return exec.query("select * from " + helpers_1.testTableName + " order by id asc");
             });
@@ -34,10 +34,10 @@ describe('Insert', function () {
         });
         it('should fail a transaction and rollback', function () {
             var exec = sql.transaction();
-            var promise = insert_1.default(exec, helpers_1.testTableName, {
-                color: 'blue',
-                ice_cream: 'chocolate'
-            })
+            var promise = insert_1.default(exec, helpers_1.testTableName, [{
+                    color: 'blue',
+                    ice_cream: 'chocolate'
+                }])
                 .then(function (result) {
                 throw new Error('test');
             });

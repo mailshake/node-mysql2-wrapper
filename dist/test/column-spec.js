@@ -23,12 +23,12 @@ describe('Tables', function () {
     });
     describe('#parseInsertColumns', function () {
         it('should parse a single row', function () {
-            var cols = insert_1.parseInsertColumns({
-                hi: 'there',
-                ok: {
-                    definition: 'varchar(3)'
-                }
-            });
+            var cols = insert_1.parseInsertColumns([{
+                    hi: 'there',
+                    ok: {
+                        definition: 'varchar(3)'
+                    }
+                }]);
             chai_1.assert.lengthOf(cols.tableColumns, 2);
             chai_1.assert.equal(cols.tableColumns[0], 'hi');
             chai_1.assert.equal(cols.tableColumns[1], 'ok');
@@ -39,14 +39,14 @@ describe('Tables', function () {
             chai_1.assert.equal(cols.queryArgs[1], null);
         });
         it('should parse multiple rows', function () {
-            var cols = insert_1.parseInsertColumns({
-                hi: 'there',
-                ok: {
-                    definition: 'varchar(3)'
-                }
-            }, {
-                hi: 'you'
-            });
+            var cols = insert_1.parseInsertColumns([{
+                    hi: 'there',
+                    ok: {
+                        definition: 'varchar(3)'
+                    }
+                }, {
+                    hi: 'you'
+                }]);
             chai_1.assert.lengthOf(cols.tableColumns, 2);
             chai_1.assert.equal(cols.tableColumns[0], 'hi');
             chai_1.assert.equal(cols.tableColumns[1], 'ok');
