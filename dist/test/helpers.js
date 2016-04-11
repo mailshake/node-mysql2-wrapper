@@ -7,6 +7,7 @@ var fs = require('fs');
 var mysql_1 = require('../lib/services/mysql');
 var mysql_config_1 = require('../lib/models/mysql-config');
 var drop_1 = require('../lib/util/drop');
+var create_1 = require('../lib/util/create');
 exports.testTableName = 'node_workhorse_mysql_spec_test';
 function getConfig() {
     var jsonPath = path.resolve(__dirname, '../../mysql-config.json');
@@ -27,4 +28,21 @@ function dropTestTable(sql) {
     return exec.done(promise);
 }
 exports.dropTestTable = dropTestTable;
+function createTestTable(sql) {
+    var exec = sql.transaction();
+    var promise = create_1.default(exec, exports.testTableName, {
+        color: {
+            definition: 'varchar(20)'
+        },
+        ice_cream: {
+            definition: 'varchar(20)'
+        },
+        id: {
+            definition: 'int NOT NULL AUTO_INCREMENT',
+            isPrimary: true
+        }
+    });
+    return exec.done(promise);
+}
+exports.createTestTable = createTestTable;
 //# sourceMappingURL=helpers.js.map
