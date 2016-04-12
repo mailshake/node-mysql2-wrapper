@@ -19,7 +19,7 @@
     "uncommitted": "^1.0.0"
   },
   "scripts": {
-    "build": "npm run clean && npm run typings install && npm run tsc",
+    "build": "npm run clean && npm run typings install && npm run tsc && npm run lint",
     "predopublish": "npm run build && uncommitted",
     "dopublish": "npm publish",
     "tsc": "tsc",
