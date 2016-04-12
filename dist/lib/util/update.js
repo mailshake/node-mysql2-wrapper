@@ -1,6 +1,7 @@
 "use strict";
 var Column_1 = require('../models/Column');
 function parseUpdateColumns(columns, variablePrefix) {
+    'use strict';
     if (variablePrefix === void 0) { variablePrefix = ''; }
     var values = {};
     var assignments = [];
@@ -16,6 +17,7 @@ function parseUpdateColumns(columns, variablePrefix) {
 }
 exports.parseUpdateColumns = parseUpdateColumns;
 function update(sql, tableName, set, where) {
+    'use strict';
     var setColumns = parseUpdateColumns(set);
     var whereColumns = parseUpdateColumns(where, 'where_');
     var query = ("update " + tableName + "\n") +

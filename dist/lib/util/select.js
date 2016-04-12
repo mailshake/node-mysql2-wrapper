@@ -1,6 +1,7 @@
 "use strict";
 var Column_1 = require('../models/Column');
 function parseUpdateColumns(columns) {
+    'use strict';
     var values = {};
     var assignments = [];
     var parsed = Column_1.default.parseList(columns);
@@ -15,6 +16,7 @@ function parseUpdateColumns(columns) {
 }
 exports.parseUpdateColumns = parseUpdateColumns;
 function parseSelect(sql, tableName, where, fields) {
+    'use strict';
     var whereColumns = parseUpdateColumns(where);
     var selectFields = '*';
     if (fields && fields.length > 0) {
@@ -27,6 +29,7 @@ function parseSelect(sql, tableName, where, fields) {
     return [query, whereColumns.values];
 }
 function select(sql, tableName, where) {
+    'use strict';
     var fields = [];
     for (var _i = 3; _i < arguments.length; _i++) {
         fields[_i - 3] = arguments[_i];
@@ -38,6 +41,7 @@ exports.select = select;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = select;
 function selectOne(sql, tableName, where) {
+    'use strict';
     var fields = [];
     for (var _i = 3; _i < arguments.length; _i++) {
         fields[_i - 3] = arguments[_i];

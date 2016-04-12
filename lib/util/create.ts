@@ -1,10 +1,9 @@
 import { Promise } from 'es6-promise';
 import Execution from '../services/execution';
 import Column from '../models/Column';
-import util = require('util');
 
 export function parseCreateColumns(columns: Column[] | any): any {
-  let args = {};
+  'use strict';
   let queryCols: any = [];
   let parsed = Column.parseList(columns);
   parsed.forEach((row) => {
@@ -18,10 +17,10 @@ export function parseCreateColumns(columns: Column[] | any): any {
 }
 
 export default function createTable(sql: Execution, tableName: string, columns: Column[] | any): Promise<any> {
-  let args = {};
+  'use strict';
   let parsed = parseCreateColumns(columns);
   let query = `create table ${tableName} (\n  ${parsed.queryCols.join(',\n  ')}`;
-  let primaryKey = parsed.columns.filter((row:Column) => {
+  let primaryKey = parsed.columns.filter((row: Column) => {
     return row.isPrimary;
   });
   if (primaryKey.length > 0) {

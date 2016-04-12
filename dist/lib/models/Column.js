@@ -22,6 +22,9 @@ var Column = (function () {
         var result = [];
         Object.keys(columns).forEach(function (name) {
             var data = columns[name];
+            if (typeof (data) === 'undefined') {
+                data = null;
+            }
             var args;
             if (typeof (data) === 'string' ||
                 typeof (data) === 'number' ||

@@ -1,5 +1,6 @@
 "use strict";
 function addForeignKey(sql, tableName, columns, parentTableName, parentTableColumns, keyName, referenceDefinitions) {
+    'use strict';
     if (!keyName) {
         keyName = tableName + "_" + columns.join('_') + "_" + parentTableName + "_" + parentTableColumns.join('_');
     }

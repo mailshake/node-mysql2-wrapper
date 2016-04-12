@@ -1,9 +1,9 @@
 import { Promise } from 'es6-promise';
 import Execution from '../services/execution';
 import Column from '../models/Column';
-import util = require('util');
 
 export function parseUpdateColumns(columns: Column[] | any): any {
+  'use strict';
   let values = {};
   let assignments: any = [];
   let parsed = Column.parseList(columns);
@@ -18,7 +18,8 @@ export function parseUpdateColumns(columns: Column[] | any): any {
   };
 }
 
-function parseSelect(sql: Execution, tableName: string, where: any | any[], fields?: string[]) {
+function parseSelect(sql: Execution, tableName: string, where: any | any[], fields?: string[]): [string, any] {
+  'use strict';
   let whereColumns = parseUpdateColumns(where);
   let selectFields = '*';
   if (fields && fields.length > 0) {
@@ -32,6 +33,7 @@ function parseSelect(sql: Execution, tableName: string, where: any | any[], fiel
 }
 
 export function select(sql: Execution, tableName: string, where: any | any[], ...fields: string[]): Promise<any> {
+  'use strict';
   let [query, values] = parseSelect(sql, tableName, where, fields);
   return sql.query(query, values);
 }
@@ -39,10 +41,11 @@ export function select(sql: Execution, tableName: string, where: any | any[], ..
 export default select;
 
 export function selectOne(sql: Execution, tableName: string, where: any | any[], ...fields: string[]): Promise<any> {
+  'use strict';
   let [query, values] = parseSelect(sql, tableName, where, fields);
   query += '\n  limit 1';
   return sql.query(query, values)
-  .then((result:any[]) => {
+  .then((result: any[]) => {
     if (result.length === 0) {
       return null;
     }

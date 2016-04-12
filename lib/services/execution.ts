@@ -1,15 +1,15 @@
 import { Promise } from 'es6-promise';
 
 export default class Execution {
-  private connection;
-  private promise;
-  private lastResult;
   history: any[] = [];
+  private connection: any;
+  private promise: Promise<any>;
+  private lastResult: any;
 
-  constructor(private connectionPromise:Promise<any>, private useTransaction) {
+  constructor(private connectionPromise: Promise<any>, private useTransaction: boolean) {
   }
 
-  query(query:string, parameters?:any): Promise<any> {
+  query(query: string, parameters?: any): Promise<any> {
     return this.continuePromise()
     .then(() => {
       return new Promise((ok, fail) => {
@@ -21,29 +21,29 @@ export default class Execution {
           this.lastResult = rows;
           ok(rows);
         });
-      })
+      });
     });
   }
 
-  done(promise): Promise<any> {
+  done(promise: Promise<any>): Promise<any> {
     return promise
     .then((result) => {
       if (this.useTransaction) {
         return this.commit()
-        .then(() => {
-          this.releaseConnection();
-          return result;
-        });
+          .then(() => {
+            this.releaseConnection();
+            return result;
+          });
       }
       this.releaseConnection();
       return result;
     })
-    .catch((err:Error) => {
+    .catch((err: Error) => {
       return this.onError(err);
-    })
+    });
   }
 
-  private onError(err: Error) {
+  private onError(err: Error): Promise<any> {
     if (this.useTransaction) {
       return this.rollback()
       .then(() => {
@@ -113,10 +113,10 @@ export default class Execution {
     });
   }
 
-  private releaseConnection() {
+  private releaseConnection(): void {
     if (this.connection) {
       this.history.push({ command: 'release connection' });
-      this.connection.release(); 
+      this.connection.release();
     }
   }
 }

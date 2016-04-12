@@ -9,6 +9,7 @@ export default function addForeignKey(
   parentTableColumns: string[],
   keyName?: string,
   referenceDefinitions?: string): Promise<any> {
+  'use strict';
 
   if (!keyName) {
     keyName = `${tableName}_${columns.join('_')}_${parentTableName}_${parentTableColumns.join('_')}`;

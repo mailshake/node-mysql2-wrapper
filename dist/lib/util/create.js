@@ -1,7 +1,7 @@
 "use strict";
 var Column_1 = require('../models/Column');
 function parseCreateColumns(columns) {
-    var args = {};
+    'use strict';
     var queryCols = [];
     var parsed = Column_1.default.parseList(columns);
     parsed.forEach(function (row) {
@@ -14,7 +14,7 @@ function parseCreateColumns(columns) {
 }
 exports.parseCreateColumns = parseCreateColumns;
 function createTable(sql, tableName, columns) {
-    var args = {};
+    'use strict';
     var parsed = parseCreateColumns(columns);
     var query = "create table " + tableName + " (\n  " + parsed.queryCols.join(',\n  ');
     var primaryKey = parsed.columns.filter(function (row) {

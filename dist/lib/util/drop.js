@@ -1,5 +1,6 @@
 "use strict";
 function dropTables(sql) {
+    'use strict';
     var tableNames = [];
     for (var _i = 1; _i < arguments.length; _i++) {
         tableNames[_i - 1] = arguments[_i];

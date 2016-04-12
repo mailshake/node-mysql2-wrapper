@@ -1,6 +1,7 @@
 "use strict";
 var Column_1 = require('../models/Column');
 function parseInsertColumns(columns) {
+    'use strict';
     var columnRows = columns.map(function (row) {
         return Column_1.default.parseList(row);
     });
@@ -38,6 +39,7 @@ function parseInsertColumns(columns) {
 }
 exports.parseInsertColumns = parseInsertColumns;
 function insert(sql, tableName, columns) {
+    'use strict';
     var columnMeta = parseInsertColumns(columns);
     var query = "insert into " + tableName + " (" + columnMeta.tableColumns + ") values " + columnMeta.queryValues.join(', ') + ";";
     return sql.query(query, columnMeta.queryArgs);

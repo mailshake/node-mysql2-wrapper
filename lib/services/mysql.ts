@@ -9,12 +9,12 @@ export default class MySQL {
   static mysql2: any = mysql2;
 
   constructor(public config: MySQLConfig) {
-    let options = <any>{
+    let options = {
       host: this.config.host,
       user: this.config.username,
       password: this.config.password,
       database: this.config.database
-    };
+    } as any;
     if (this.config.isAmazonRDS) {
       options.ssl = 'Amazon RDS';
     }

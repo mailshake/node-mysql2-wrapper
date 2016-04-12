@@ -1,9 +1,9 @@
 import { Promise } from 'es6-promise';
 import Execution from '../services/execution';
 import Column from '../models/Column';
-import util = require('util');
 
-export function parseUpdateColumns(columns: Column[] | any, variablePrefix:string = ''): any {
+export function parseUpdateColumns(columns: Column[] | any, variablePrefix: string = ''): any {
+  'use strict';
   let values = {};
   let assignments: any = [];
   let parsed = Column.parseList(columns);
@@ -18,7 +18,8 @@ export function parseUpdateColumns(columns: Column[] | any, variablePrefix:strin
   };
 }
 
-export default function update(sql: Execution, tableName: string, set: any | any[], where:any|any[]): Promise<any> {
+export default function update(sql: Execution, tableName: string, set: any | any[], where: any | any[]): Promise<any> {
+  'use strict';
   let setColumns = parseUpdateColumns(set);
   let whereColumns = parseUpdateColumns(where, 'where_');
   let query = `update ${tableName}\n` +

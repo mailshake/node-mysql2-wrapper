@@ -20,7 +20,7 @@ export default class Column {
     }
   }
 
-  static parseList(columns:Column[]|any): Column[] {
+  static parseList(columns: Column[]|any): Column[] {
     if (util.isArray(columns)) {
       return columns;
     }
@@ -28,6 +28,9 @@ export default class Column {
     let result: Column[] = [];
     Object.keys(columns).forEach((name) => {
       let data = columns[name];
+      if (typeof(data) === 'undefined') {
+        data = null;
+      }
       let args;
       if (typeof (data) === 'string' ||
         typeof (data) === 'number' ||
@@ -38,7 +41,7 @@ export default class Column {
         args = {
           name: name,
           value: data
-        }
+        };
       }
       else {
         args = data;
