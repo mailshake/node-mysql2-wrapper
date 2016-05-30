@@ -103,6 +103,9 @@ export default class Execution {
 
   private rollback(): Promise<any> {
     return new Promise((ok, fail) => {
+      if (!this.connection) {
+        return ok();
+      }
       this.history.push({ command: 'rollback' });
       this.connection.rollback((err) => {
         if (err) {

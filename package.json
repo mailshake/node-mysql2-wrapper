@@ -3,6 +3,7 @@
   "version": "1.0.4",
   "description": "Shortcuts and utilities for the node-mysql2 package",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "dependencies": {
     "es6-promise": "^3.1.2",
     "mysql2": "^1.0.0-rc.1",
@@ -29,8 +30,8 @@
     "pretest": "npm run build",
     "test": "mocha",
     "typings": "typings",
-    "lint": "tslint lib/**/*.ts test/**.*.ts index.ts",
-    "lint:q": "tslint --force lib/**/*.ts test/**.*.ts index.ts"
+    "lint": "tslint lib/**/*.ts test/**/*.ts index.ts",
+    "lint:q": "tslint --force lib/**/*.ts test/**/*.ts index.ts"
   },
   "repository": {
     "type": "git",
