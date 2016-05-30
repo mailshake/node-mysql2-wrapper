@@ -10,6 +10,7 @@ var drop_1 = require('../lib/util/drop');
 var create_1 = require('../lib/util/create');
 exports.testTableName = 'node_workhorse_mysql_spec_test';
 function getConfig() {
+    'use strict';
     var jsonPath = path.resolve(__dirname, '../../mysql-config.json');
     if (!fs.existsSync(jsonPath)) {
         throw new Error("Please create a 'mysql-config.json' file in the root directory of this project to test");
@@ -18,17 +19,20 @@ function getConfig() {
     return new mysql_config_1.default(rawConfig);
 }
 function getSql() {
+    'use strict';
     var config = getConfig();
     return new mysql_1.default(config);
 }
 exports.getSql = getSql;
 function dropTestTable(sql) {
+    'use strict';
     var exec = sql.transaction();
     var promise = drop_1.default(exec, exports.testTableName);
     return exec.done(promise);
 }
 exports.dropTestTable = dropTestTable;
 function createTestTable(sql) {
+    'use strict';
     var exec = sql.transaction();
     var promise = create_1.default(exec, exports.testTableName, {
         color: {

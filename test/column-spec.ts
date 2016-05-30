@@ -7,7 +7,7 @@ import { parseInsertColumns } from '../lib/util/insert';
 
 describe('Tables', () => {
   describe('#parse', () => {
-    it('should parse column data from an object hash', function() {
+    it('should parse column data from an object hash', function(): void {
       let cols = Column.parseList({
         hi: 'there',
         ok: {
@@ -23,7 +23,7 @@ describe('Tables', () => {
   });
 
   describe('#parseInsertColumns', () => {
-    it('should parse a single row', function() {
+    it('should parse a single row', function(): void {
       let cols = parseInsertColumns([{
         hi: 'there',
         ok: {
@@ -40,7 +40,7 @@ describe('Tables', () => {
       assert.equal(cols.queryArgs[1], null);
     });
 
-    it('should parse multiple rows', function() {
+    it('should parse multiple rows', function(): void {
       let cols = parseInsertColumns([{
         hi: 'there',
         ok: {

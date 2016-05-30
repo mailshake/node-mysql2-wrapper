@@ -22,11 +22,7 @@ describe('Update', function () {
                     color: 'green'
                 }])
                 .then(function () {
-                return update_1.default(exec, helpers_1.testTableName, {
-                    color: 'red-ish'
-                }, {
-                    color: 'maroon'
-                });
+                return update_1.default(exec, helpers_1.testTableName, { color: 'red-ish' }, { color: 'maroon' });
             })
                 .then(function (result) {
                 return exec.query("select * from " + helpers_1.testTableName + " where color = 'red-ish'");

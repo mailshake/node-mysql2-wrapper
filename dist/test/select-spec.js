@@ -22,9 +22,7 @@ describe('Select', function () {
                     color: 'green'
                 }])
                 .then(function () {
-                return select_1.selectOne(exec, helpers_1.testTableName, {
-                    color: 'purple'
-                }, 'ice_cream');
+                return select_1.selectOne(exec, helpers_1.testTableName, { color: 'purple' }, 'ice_cream');
             });
             return exec.done(promise)
                 .then(function (result) {

@@ -99,6 +99,9 @@ var Execution = (function () {
     Execution.prototype.rollback = function () {
         var _this = this;
         return new es6_promise_1.Promise(function (ok, fail) {
+            if (!_this.connection) {
+                return ok();
+            }
             _this.history.push({ command: 'rollback' });
             _this.connection.rollback(function (err) {
                 if (err) {

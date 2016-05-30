@@ -1,5 +1,4 @@
 import { assert } from 'chai';
-import MySQLConfig from '../lib/models/mysql-config';
 import MySQL from '../lib/services/mysql';
 import { dropTestTable, createTestTable, testTableName, getSql } from './helpers';
 import insert from '../lib/util/insert';
@@ -7,7 +6,7 @@ import insert from '../lib/util/insert';
 describe('Insert', () => {
   let sql: MySQL;
 
-  before(function() {
+  before(function(): Promise<any> {
     sql = getSql();
     return dropTestTable(sql)
     .then(() => {
@@ -16,7 +15,7 @@ describe('Insert', () => {
   });
 
   describe('#run', () => {
-    it('should insert a row', function() {
+    it('should insert a row', function(): Promise<any> {
       let exec = sql.transaction();
       let promise = insert(exec, testTableName, [{
         color: 'red',
@@ -38,12 +37,16 @@ describe('Insert', () => {
       });
     });
 
-    it('should fail a transaction and rollback', function() {
+    it('should fail a transaction and rollback', function(): Promise<any> {
       let exec = sql.transaction();
-      let promise = insert(exec, testTableName, [{
-        color: 'blue',
-        ice_cream: 'chocolate'
-      }])
+      let promise = insert(
+        exec,
+        testTableName,
+        [{
+          color: 'blue',
+          ice_cream: 'chocolate'
+        }]
+      )
       .then((result) => {
         throw new Error('test');
       });

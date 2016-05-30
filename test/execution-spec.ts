@@ -1,17 +1,16 @@
 import { assert } from 'chai';
-import MySQLConfig from '../lib/models/mysql-config';
 import MySQL from '../lib/services/mysql';
 import { getSql } from './helpers';
 
 describe('Execution', () => {
   let sql: MySQL;
 
-  before(function() {
+  before(function(): void {
     sql = getSql();
   });
 
   describe('#run', () => {
-    it('should execute a successful transaction', function() {
+    it('should execute a successful transaction', function(): Promise<any> {
       let exec = sql.transaction();
       let promise = exec.query('select 1')
         .then((result) => exec.query('select 2'))
@@ -21,7 +20,7 @@ describe('Execution', () => {
             ok(5);
           });
         });
-      
+
       return exec.done(promise)
       .then((result) => {
         assert.equal(result, 5);
@@ -37,7 +36,7 @@ describe('Execution', () => {
       });
     });
 
-    it('should execute a transaction rollback with a thrown error', function() {
+    it('should execute a transaction rollback with a thrown error', function(): Promise<any> {
       let exec = sql.transaction();
       let promise = exec.query('select 1')
         .then((result) => {
@@ -57,7 +56,7 @@ describe('Execution', () => {
         });
     });
 
-    it('should execute a transaction rollback with a SQL error', function() {
+    it('should execute a transaction rollback with a SQL error', function(): Promise<any> {
       let exec = sql.transaction();
       let promise = exec.query('select 1c');
 
@@ -74,9 +73,9 @@ describe('Execution', () => {
         });
     });
 
-    it('should execute a non-transaction query', function() {
+    it('should execute a non-transaction query', function(): Promise<any> {
       let exec = sql.execution();
-      let promise = exec.query('select 1')
+      let promise = exec.query('select 1');
       return exec.done(promise)
         .then((result) => {
           assert.lengthOf(result, 1);
