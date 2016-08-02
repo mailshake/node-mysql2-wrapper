@@ -1,6 +1,6 @@
 {
   "name": "node-mysql2-wrapper",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Shortcuts and utilities for the node-mysql2 package",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
