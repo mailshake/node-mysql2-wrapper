@@ -6,20 +6,6 @@ export default class Column {
   value: string;
   isPrimary: boolean;
 
-  constructor(name: string | any, value?: string) {
-    if (typeof (name) === 'string') {
-      this.name = name;
-    }
-    else {
-      Object.keys(name).forEach((key) => {
-        this[key] = name[key];
-      });
-    }
-    if (value) {
-      this.value = value;
-    }
-  }
-
   static parseList(columns: Column[]|any): Column[] {
     if (util.isArray(columns)) {
       return columns;
@@ -50,5 +36,19 @@ export default class Column {
       result.push(new Column(args));
     });
     return result;
+  }
+
+  constructor(name: string | any, value?: string) {
+    if (typeof (name) === 'string') {
+      this.name = name;
+    }
+    else {
+      Object.keys(name).forEach((key) => {
+        this[key] = name[key];
+      });
+    }
+    if (value) {
+      this.value = value;
+    }
   }
 }
