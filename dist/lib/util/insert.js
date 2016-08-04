@@ -1,9 +1,9 @@
 "use strict";
-var Column_1 = require('../models/Column');
+var column_1 = require('../models/column');
 function parseInsertColumns(columns) {
     'use strict';
     var columnRows = columns.map(function (row) {
-        return Column_1.default.parseList(row);
+        return column_1.default.parseList(row);
     });
     var tableColumns = columnRows.reduce(function (response, row) {
         row.forEach(function (col) {

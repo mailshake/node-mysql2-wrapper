@@ -1,6 +1,6 @@
 import { Promise } from 'es6-promise';
 import Execution from '../services/execution';
-import Column from '../models/Column';
+import Column from '../models/column';
 
 export function parseUpdateColumns(columns: Column[] | any, variablePrefix: string = ''): any {
   'use strict';

@@ -1,11 +1,11 @@
 "use strict";
-var Column_1 = require('../models/Column');
+var column_1 = require('../models/column');
 function parseUpdateColumns(columns, variablePrefix) {
     'use strict';
     if (variablePrefix === void 0) { variablePrefix = ''; }
     var values = {};
     var assignments = [];
-    var parsed = Column_1.default.parseList(columns);
+    var parsed = column_1.default.parseList(columns);
     parsed.forEach(function (row) {
         assignments.push(row.name + " = :" + variablePrefix + row.name);
         values[("" + variablePrefix + row.name)] = row.value;

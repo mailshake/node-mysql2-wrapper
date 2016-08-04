@@ -1,9 +1,9 @@
 "use strict";
-var Column_1 = require('../models/Column');
+var column_1 = require('../models/column');
 function parseCreateColumns(columns) {
     'use strict';
     var queryCols = [];
-    var parsed = Column_1.default.parseList(columns);
+    var parsed = column_1.default.parseList(columns);
     parsed.forEach(function (row) {
         queryCols.push(row.name + " " + row.definition);
     });
