@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "dependencies": {
-    "mysql2": "^1.0.0-rc.1",
+    "mysql2": "^3.9.8",
     "node-uuid": "^1.4.7",
     "source-map-support": "^0.5.0"
   },
