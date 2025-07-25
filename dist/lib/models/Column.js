@@ -1,6 +1,6 @@
 "use strict";
-var util = require('util');
-var Column = (function () {
+Object.defineProperty(exports, "__esModule", { value: true });
+var Column = /** @class */ (function () {
     function Column(name, value) {
         var _this = this;
         if (typeof (name) === 'string') {
@@ -16,7 +16,7 @@ var Column = (function () {
         }
     }
     Column.parseList = function (columns) {
-        if (util.isArray(columns)) {
+        if (Array.isArray(columns)) {
             return columns;
         }
         var result = [];
@@ -29,9 +29,9 @@ var Column = (function () {
             if (typeof (data) === 'string' ||
                 typeof (data) === 'number' ||
                 typeof (data) === 'boolean' ||
-                util.isRegExp(data) ||
+                data instanceof RegExp ||
                 data === null ||
-                util.isDate(data)) {
+                data instanceof Date) {
                 args = {
                     name: name,
                     value: data
@@ -47,6 +47,5 @@ var Column = (function () {
     };
     return Column;
 }());
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Column;
 //# sourceMappingURL=column.js.map

@@ -6,63 +6,65 @@ import insert from '../lib/util/insert';
 describe('Insert', () => {
   let sql: MySQL;
 
-  before(function(): Promise<any> {
+  before(function (): Promise<any> {
     sql = getSql();
     return dropTestTable(sql)
-    .then(() => {
-      return createTestTable(sql);
-    });
+      .then(() => {
+        return createTestTable(sql);
+      });
   });
 
   describe('#run', () => {
-    it('should insert a row', function(): Promise<any> {
+    it('should insert a row', function (): Promise<any> {
       let exec = sql.transaction();
       let promise = insert(exec, testTableName, [{
         color: 'red',
-        ice_cream: 'chocolate'
+        ice_cream: 'chocolate',
       }, {
-          color: 'green'
+        color: 'green',
       }])
-      .then((result) => {
-        return exec.query(`select * from ${testTableName} order by id asc`);
-      });
+        .then((result) => {
+          return exec.query(`select *
+                             from ${testTableName}
+                             order by id asc`);
+        });
 
       return exec.done(promise)
-      .then((result) => {
-        assert.lengthOf(result, 2);
-        assert.isOk(result[0].id);
-        assert.equal(result[0].ice_cream, 'chocolate');
-        assert.isOk(result[1].id);
-        assert.isNull(result[1].ice_cream);
-      });
+        .then((result) => {
+          assert.lengthOf(result, 2);
+          assert.isOk(result[0].id);
+          assert.equal(result[0].ice_cream, 'chocolate');
+          assert.isOk(result[1].id);
+          assert.isNull(result[1].ice_cream);
+        });
     });
 
-    it('should fail a transaction and rollback', function(): Promise<any> {
+    it('should fail a transaction and rollback', function (): Promise<any> {
       let exec = sql.transaction();
-      let promise = insert(
+      let promise: Promise<any> = insert(
         exec,
         testTableName,
         [{
           color: 'blue',
-          ice_cream: 'chocolate'
-        }]
+          ice_cream: 'chocolate',
+        }],
       )
-      .then((result) => {
-        throw new Error('test');
-      });
+        .then((result) => {
+          throw new Error('test');
+        });
 
       return exec.done(promise)
-      .then(() => {
-        assert.fail('Should not get here');
-      })
-      .catch(() => {
-        exec = sql.transaction();
-        promise = exec.query(`select * from ${testTableName} where color = :color`, { color: 'blue' });
-        return exec.done(promise);
-      })
-      .then((result) => {
-        assert.lengthOf(result, 0);
-      });
+        .then(() => {
+          assert.fail('Should not get here');
+        })
+        .catch(() => {
+          exec = sql.transaction();
+          promise = exec.query(`select *  from ${testTableName} where color = :color`, { color: 'blue' });
+          return exec.done(promise);
+        })
+        .then((result) => {
+          assert.lengthOf(result, 0);
+        });
     });
   });
 });

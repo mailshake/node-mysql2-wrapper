@@ -1,6 +1,7 @@
 "use strict";
-var chai_1 = require('chai');
-var helpers_1 = require('./helpers');
+Object.defineProperty(exports, "__esModule", { value: true });
+var chai_1 = require("chai");
+var helpers_1 = require("./helpers");
 describe('Execution', function () {
     var sql;
     before(function () {

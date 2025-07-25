@@ -1,5 +1,3 @@
-import { Promise } from 'es6-promise';
-
 export default class Execution {
   history: any[] = [];
   private connection: any;

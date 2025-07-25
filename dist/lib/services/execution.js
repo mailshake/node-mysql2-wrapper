@@ -1,6 +1,6 @@
 "use strict";
-var es6_promise_1 = require('es6-promise');
-var Execution = (function () {
+Object.defineProperty(exports, "__esModule", { value: true });
+var Execution = /** @class */ (function () {
     function Execution(connectionPromise, useTransaction) {
         this.connectionPromise = connectionPromise;
         this.useTransaction = useTransaction;
@@ -10,7 +10,7 @@ var Execution = (function () {
         var _this = this;
         return this.continuePromise()
             .then(function () {
-            return new es6_promise_1.Promise(function (ok, fail) {
+            return new Promise(function (ok, fail) {
                 _this.history.push({ command: query });
                 _this.connection.query(query, parameters, function (err, rows) {
                     if (err) {
@@ -58,7 +58,7 @@ var Execution = (function () {
             return this.promise;
         }
         if (this.connection) {
-            this.promise = es6_promise_1.Promise.resolve();
+            this.promise = Promise.resolve();
         }
         else {
             this.promise = this.connectionPromise
@@ -74,7 +74,7 @@ var Execution = (function () {
     };
     Execution.prototype.beginTransaction = function () {
         var _this = this;
-        return new es6_promise_1.Promise(function (ok, fail) {
+        return new Promise(function (ok, fail) {
             _this.history.push({ command: 'begin transaction' });
             _this.connection.beginTransaction(function (err) {
                 if (err) {
@@ -86,7 +86,7 @@ var Execution = (function () {
     };
     Execution.prototype.commit = function () {
         var _this = this;
-        return new es6_promise_1.Promise(function (ok, fail) {
+        return new Promise(function (ok, fail) {
             _this.history.push({ command: 'commit' });
             _this.connection.commit(function (err) {
                 if (err) {
@@ -98,7 +98,7 @@ var Execution = (function () {
     };
     Execution.prototype.rollback = function () {
         var _this = this;
-        return new es6_promise_1.Promise(function (ok, fail) {
+        return new Promise(function (ok, fail) {
             if (!_this.connection) {
                 return ok();
             }
@@ -119,6 +119,5 @@ var Execution = (function () {
     };
     return Execution;
 }());
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Execution;
 //# sourceMappingURL=execution.js.map

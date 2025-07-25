@@ -1,8 +1,9 @@
 "use strict";
-var chai_1 = require('chai');
-var helpers_1 = require('./helpers');
-var insert_1 = require('../lib/util/insert');
-var select_1 = require('../lib/util/select');
+Object.defineProperty(exports, "__esModule", { value: true });
+var chai_1 = require("chai");
+var helpers_1 = require("./helpers");
+var insert_1 = require("../lib/util/insert");
+var select_1 = require("../lib/util/select");
 describe('Select', function () {
     var sql;
     before(function () {

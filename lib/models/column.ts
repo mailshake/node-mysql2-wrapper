@@ -1,5 +1,3 @@
-import util = require('util');
-
 export default class Column {
   name: string;
   definition: string;
@@ -7,7 +5,7 @@ export default class Column {
   isPrimary: boolean;
 
   static parseList(columns: Column[]|any): Column[] {
-    if (util.isArray(columns)) {
+    if (Array.isArray(columns)) {
       return columns;
     }
 
@@ -21,9 +19,9 @@ export default class Column {
       if (typeof (data) === 'string' ||
         typeof (data) === 'number' ||
         typeof (data) === 'boolean' ||
-        util.isRegExp(data) ||
+        data instanceof RegExp ||
         data === null ||
-        util.isDate(data)) {
+        data instanceof Date) {
         args = {
           name: name,
           value: data

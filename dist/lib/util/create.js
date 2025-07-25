@@ -1,5 +1,7 @@
 "use strict";
-var column_1 = require('../models/column');
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseCreateColumns = void 0;
+var column_1 = require("../models/column");
 function parseCreateColumns(columns) {
     'use strict';
     var queryCols = [];
@@ -27,6 +29,5 @@ function createTable(sql, tableName, columns) {
     query += '\n)';
     return sql.query(query);
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = createTable;
 //# sourceMappingURL=create.js.map

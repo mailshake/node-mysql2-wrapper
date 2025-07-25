@@ -1,13 +1,15 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createTestTable = exports.dropTestTable = exports.getSql = exports.testTableName = void 0;
 require('source-map-support').install({
     handleUncaughtExceptions: false
 });
 var path = require('path');
 var fs = require('fs');
-var mysql_1 = require('../lib/services/mysql');
-var mysql_config_1 = require('../lib/models/mysql-config');
-var drop_1 = require('../lib/util/drop');
-var create_1 = require('../lib/util/create');
+var mysql_1 = require("../lib/services/mysql");
+var mysql_config_1 = require("../lib/models/mysql-config");
+var drop_1 = require("../lib/util/drop");
+var create_1 = require("../lib/util/create");
 exports.testTableName = 'node_workhorse_mysql_spec_test';
 function getConfig() {
     'use strict';

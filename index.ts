@@ -21,4 +21,4 @@ export {
   addForeignKey,
   select,
   selectOne
-}
+};

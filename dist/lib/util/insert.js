@@ -1,5 +1,7 @@
 "use strict";
-var column_1 = require('../models/column');
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseInsertColumns = void 0;
+var column_1 = require("../models/column");
 function parseInsertColumns(columns) {
     'use strict';
     var columnRows = columns.map(function (row) {
@@ -44,6 +46,5 @@ function insert(sql, tableName, columns) {
     var query = "insert into " + tableName + " (" + columnMeta.tableColumns + ") values " + columnMeta.queryValues.join(', ') + ";";
     return sql.query(query, columnMeta.queryArgs);
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = insert;
 //# sourceMappingURL=insert.js.map

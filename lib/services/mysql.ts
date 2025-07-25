@@ -1,4 +1,3 @@
-import { Promise } from 'es6-promise';
 import MySQLConfig from '../models/mysql-config';
 import Execution from './execution';
 let mysql2 = require('mysql2');

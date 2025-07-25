@@ -1,5 +1,7 @@
 "use strict";
-var column_1 = require('../models/column');
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.selectOne = exports.select = exports.parseUpdateColumns = void 0;
+var column_1 = require("../models/column");
 function parseUpdateColumns(columns) {
     'use strict';
     var values = {};
@@ -7,7 +9,7 @@ function parseUpdateColumns(columns) {
     var parsed = column_1.default.parseList(columns);
     parsed.forEach(function (row) {
         assignments.push(row.name + " = :" + row.name);
-        values[("" + row.name)] = row.value;
+        values["" + row.name] = row.value;
     });
     return {
         assignments: assignments,
@@ -38,7 +40,6 @@ function select(sql, tableName, where) {
     return sql.query(query, values);
 }
 exports.select = select;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = select;
 function selectOne(sql, tableName, where) {
     'use strict';

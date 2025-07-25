@@ -1,4 +1,3 @@
-import { Promise } from 'es6-promise';
 import Execution from '../services/execution';
 
 export default function addForeignKey(

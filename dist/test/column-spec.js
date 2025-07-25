@@ -1,10 +1,11 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 require('source-map-support').install({
     handleUncaughtExceptions: false
 });
-var chai_1 = require('chai');
-var column_1 = require('../lib/models/column');
-var insert_1 = require('../lib/util/insert');
+var chai_1 = require("chai");
+var column_1 = require("../lib/models/column");
+var insert_1 = require("../lib/util/insert");
 describe('Tables', function () {
     describe('#parse', function () {
         it('should parse column data from an object hash', function () {

@@ -1,7 +1,8 @@
 "use strict";
-var chai_1 = require('chai');
-var helpers_1 = require('./helpers');
-var insert_1 = require('../lib/util/insert');
+Object.defineProperty(exports, "__esModule", { value: true });
+var chai_1 = require("chai");
+var helpers_1 = require("./helpers");
+var insert_1 = require("../lib/util/insert");
 describe('Insert', function () {
     var sql;
     before(function () {
@@ -16,12 +17,12 @@ describe('Insert', function () {
             var exec = sql.transaction();
             var promise = insert_1.default(exec, helpers_1.testTableName, [{
                     color: 'red',
-                    ice_cream: 'chocolate'
+                    ice_cream: 'chocolate',
                 }, {
-                    color: 'green'
+                    color: 'green',
                 }])
                 .then(function (result) {
-                return exec.query("select * from " + helpers_1.testTableName + " order by id asc");
+                return exec.query("select *\n                             from " + helpers_1.testTableName + "\n                             order by id asc");
             });
             return exec.done(promise)
                 .then(function (result) {
@@ -36,7 +37,7 @@ describe('Insert', function () {
             var exec = sql.transaction();
             var promise = insert_1.default(exec, helpers_1.testTableName, [{
                     color: 'blue',
-                    ice_cream: 'chocolate'
+                    ice_cream: 'chocolate',
                 }])
                 .then(function (result) {
                 throw new Error('test');
@@ -47,7 +48,7 @@ describe('Insert', function () {
             })
                 .catch(function () {
                 exec = sql.transaction();
-                promise = exec.query("select * from " + helpers_1.testTableName + " where color = :color", { color: 'blue' });
+                promise = exec.query("select *  from " + helpers_1.testTableName + " where color = :color", { color: 'blue' });
                 return exec.done(promise);
             })
                 .then(function (result) {
